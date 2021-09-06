@@ -1,3 +1,4 @@
+
 syntax on
 set number
 set mouse=a
@@ -46,8 +47,24 @@ Plug 'preservim/nerdtree'
 
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'https://github.com/Quramy/vim-js-pretty-template'
 
 Plug 'https://github.com/leafgarland/typescript-vim'
+
+Plug 'https://github.com/pangloss/vim-javascript'
+
+Plug 'https://github.com/Shougo/vimproc.vim',{'do' :'make'}
+
+Plug 'https://github.com/Quramy/tsuquyomi'
+
+Plug 'https://github.com/ycm-core/YouCompleteMe'
+
+Plug 'https://github.com/vim-syntastic/syntastic'
+
+Plug 'https://github.com/editorconfig/editorconfig-vim'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -58,6 +75,12 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = "hard"
 
 
-
-
-
+autocmd FileType typescript JsPreTmpl html
+autocmd FileType typescript syn clear foldBraces
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] 
