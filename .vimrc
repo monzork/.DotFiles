@@ -1,4 +1,3 @@
-
 syntax on
 set number
 set mouse=a
@@ -10,10 +9,14 @@ set showmatch
 set sw=4
 set relativenumber
 let mapleader = " "
+set rtp+=~\.fzf
 set laststatus=2
 set backspace=2
 set guioptions-=T
+set noswapfile
 set guioptions-=L
+set encoding=utf-8
+set rtp+=~/.fzf
 imap jk <Esc>
 
 "Mapping to reload config
@@ -61,11 +64,21 @@ Plug 'https://github.com/ycm-core/YouCompleteMe'
 
 Plug 'https://github.com/vim-syntastic/syntastic'
 
+Plug 'itchyny/vim-gitbranch'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'webastien/vim-ctags'
+
 Plug 'https://github.com/editorconfig/editorconfig-vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 
+Plug '~/.fzf'
+
+Plug 'jeetsukumaran/vim-filesearch'
+
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 
@@ -75,7 +88,6 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = "hard"
 
 
-autocmd FileType typescript JsPreTmpl html
 autocmd FileType typescript syn clear foldBraces
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
