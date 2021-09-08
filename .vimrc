@@ -17,19 +17,20 @@ set noswapfile
 set guioptions-=L
 set encoding=utf-8
 set rtp+=~/.fzf
+set nowrap
 imap jk <Esc>
 
 let g:lightline = {
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-\ },
-\ 'component_function': {
-\   'gitbranch': 'gitbranch#name'
-\ },
-\ }
+	    \ 'active': {
+		\   'left': [ [ 'mode', 'paste' ],
+		\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+		\ },
+		\ 'component_function': {
+		    \   'gitbranch': 'gitbranch#name'
+		    \ },
+		    \ }
 "Mapping to reload config
-nmap <leader>so :source $HOME\_vimrc<CR>
+nmap <leader>so :source $HOME\.vimrc<CR>
 nmap <leader>w :w <CR>
 nmap <leader>q :q <CR>
 
@@ -67,7 +68,6 @@ Plug 'https://github.com/pangloss/vim-javascript'
 
 Plug 'https://github.com/Shougo/vimproc.vim',{'do' :'make'}
 
-Plug 'https://github.com/Quramy/tsuquyomi'
 
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 
@@ -95,18 +95,28 @@ Plug 'tpope/vim-fugitive'
 call plug#end()
 
 
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+	    \ pumvisible() ? "\<C-n>" :
+	    \ <SID>check_back_space() ? "\<Tab>" :
+	    \ coc#refresh()
+
 nmap <Leader>nt :NERDTreeFind<CR>
 nmap <Leader>s <Plug>(easymotion-s2)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = "hard"
 
-
-autocmd FileType typescript syn clear foldBraces
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
 colorscheme dracula
+
