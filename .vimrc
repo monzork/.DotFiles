@@ -19,6 +19,15 @@ set encoding=utf-8
 set rtp+=~/.fzf
 imap jk <Esc>
 
+let g:lightline = {
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+\ },
+\ 'component_function': {
+\   'gitbranch': 'gitbranch#name'
+\ },
+\ }
 "Mapping to reload config
 nmap <leader>so :source $HOME\_vimrc<CR>
 nmap <leader>w :w <CR>
@@ -26,13 +35,13 @@ nmap <leader>q :q <CR>
 
 if has("gui_running")
 
-if has("gui_gtk2")
-set guifont=Inconsolata\ 12
-elseif has("gui_macvim")
-set guifont=Menlo\ Regular:h14
-elseif has("gui_win32")
-set guifont=Consolas:h11:cANSI
-endif
+    if has("gui_gtk2")
+	set guifont=Inconsolata\ 12
+    elseif has("gui_macvim")
+	set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+	set guifont=Consolas:h11:cANSI
+    endif
 endif
 
 " Specify a directory for plugins
@@ -62,6 +71,7 @@ Plug 'https://github.com/Quramy/tsuquyomi'
 
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'https://github.com/vim-syntastic/syntastic'
 
 Plug 'itchyny/vim-gitbranch'
@@ -76,8 +86,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug '~/.fzf'
 
+
+Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-filesearch'
 
+Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 call plug#end()
 
@@ -95,4 +108,5 @@ set statusline+=%*
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi'] 
+let g:syntastic_typescript_checkers = ['tsuquyomi']
+colorscheme dracula
