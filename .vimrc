@@ -68,7 +68,7 @@ Plug 'https://github.com/pangloss/vim-javascript'
 
 Plug 'https://github.com/Shougo/vimproc.vim',{'do' :'make'}
 
-
+Plug 'shmup/vim-sql-syntax'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -77,7 +77,7 @@ Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'itchyny/vim-gitbranch'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+Plug 'zivyangll/git-blame.vim'
 Plug 'webastien/vim-ctags'
 
 Plug 'https://github.com/editorconfig/editorconfig-vim'
@@ -103,12 +103,13 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
+nmap <F11> :!start explorer /select,%:p
+imap <F11> <Esc><F11>
 inoremap <silent><expr> <Tab>
 	    \ pumvisible() ? "\<C-n>" :
 	    \ <SID>check_back_space() ? "\<Tab>" :
 	    \ coc#refresh()
-
+nnoremap <Leader>g :<C-u>call gitblame#echo()<CR>
 nmap <Leader>nt :NERDTreeFind<CR>
 nmap <Leader>s <Plug>(easymotion-s2)
 nmap <silent> gd <Plug>(coc-definition)
@@ -119,4 +120,3 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = "hard"
 
 colorscheme dracula
-
