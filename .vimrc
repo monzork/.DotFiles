@@ -20,6 +20,18 @@ set rtp+=~/.fzf
 set nowrap
 imap jk <Esc>
 
+let g:coc_global_extensions = [
+	    \'coc-markdownlint',
+	    \'coc-highlight',
+	    \'coc-explorer',
+	    \'coc-json', 
+	    \'coc-git',
+	    \'coc-tsserver',
+	    \'coc-omnisharp',
+	    \'coc-prettier',
+	    \'coc-angular'
+	    \]
+
 let g:lightline = {
 	    \ 'active': {
 		\   'left': [ [ 'mode', 'paste' ],
