@@ -1,7 +1,10 @@
 syntax on
 set number
+set noerrorbells
 set mouse=a
 set clipboard=unnamed
+set visualbell 
+set t_vb=
 set showcmd
 set ruler
 set encoding=utf8
@@ -68,7 +71,6 @@ Plug 'morhetz/gruvbox'
 "IDE
 Plug 'easymotion/vim-easymotion'
 "Nerdtree
-Plug 'preservim/nerdtree'
 
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -96,16 +98,30 @@ Plug 'https://github.com/editorconfig/editorconfig-vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
+Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim'
 Plug '~/.fzf'
 
+"Plug 'tpope/vim-fugitive'
 
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-filesearch'
 
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
+
+Plug 'hschne/fzf-git'
+
 call plug#end()
 
+let g:fzf_layout = { 'window': {'width':0.8, 'height':0.8}}
+let $FZF_DEFAULT_OPTS='--reverse'
+nnoremap <leader>gc :GBranches<CR>
+let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
+nmap <leader>gj :diffget //3<CR>
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gs :G<CR> 
+nmap <leader>gc :Git commit<CR>
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
@@ -122,13 +138,12 @@ inoremap <silent><expr> <Tab>
 	    \ <SID>check_back_space() ? "\<Tab>" :
 	    \ coc#refresh()
 nnoremap <Leader>g :<C-u>call gitblame#echo()<CR>
+
 nmap <Leader>nt :NERDTreeFind<CR>
 nmap <Leader>s <Plug>(easymotion-s2)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = "hard"
 
 colorscheme dracula
