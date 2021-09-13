@@ -1,14 +1,19 @@
 syntax on
+set tabstop=4 softtabstop=4
 set number
+set smartindent
 set noerrorbells
 set mouse=a
+set signcolumn=yes
+set shiftwidth=4
 set clipboard=unnamed
-set visualbell 
+set visualbell
 set t_vb=
 set showcmd
 set ruler
 set encoding=utf8
 set showmatch
+set scrolloff=8
 set sw=4
 set relativenumber
 let mapleader = " "
@@ -21,13 +26,14 @@ set guioptions-=L
 set encoding=utf-8
 set rtp+=~/.fzf
 set nowrap
+set incsearch
 imap jk <Esc>
 
 let g:coc_global_extensions = [
 	    \'coc-markdownlint',
 	    \'coc-highlight',
 	    \'coc-explorer',
-	    \'coc-json', 
+	    \'coc-json',
 	    \'coc-git',
 	    \'coc-tsserver',
 	    \'coc-omnisharp',
@@ -120,7 +126,7 @@ nnoremap <leader>gb :GBranches<CR>
 let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
-nmap <leader>gs :G<CR> 
+nmap <leader>gs :G<CR>
 nmap <leader>gc :Git commit<CR>
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -145,5 +151,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+
+autocmd BufWritePre * :%s/\s\+$//e
 
 colorscheme dracula
