@@ -1,9 +1,5 @@
 syntax on
-<<<<<<< HEAD
-" confff
-=======
 " Conlifcto
->>>>>>> 597a5b798e0a20f09ea13d23c73a20c2208b53d8
 set tabstop=4 softtabstop=4
 set number
 set smartindent
