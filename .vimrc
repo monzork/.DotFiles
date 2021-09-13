@@ -1,4 +1,5 @@
 syntax on
+" confff
 set tabstop=4 softtabstop=4
 set number
 set smartindent
