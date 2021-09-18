@@ -85,8 +85,10 @@ Plug 'https://github.com/Quramy/vim-js-pretty-template'
 Plug 'https://github.com/leafgarland/typescript-vim'
 
 Plug 'https://github.com/pangloss/vim-javascript'
-
+Plug 'jiangmiao/auto-pairs'
 Plug 'https://github.com/Shougo/vimproc.vim',{'do' :'make'}
+Plug 'mxw/vim-jsx'
+
 
 Plug 'shmup/vim-sql-syntax'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
@@ -117,7 +119,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 
 Plug 'hschne/fzf-git'
-
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 call plug#end()
 
 let g:fzf_layout = { 'window': {'width':0.8, 'height':0.8}}
