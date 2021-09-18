@@ -1,4 +1,5 @@
 syntax on
+" Conlifcto
 set tabstop=4 softtabstop=4
 set number
 set smartindent
@@ -30,26 +31,26 @@ set incsearch
 imap jk <Esc>
 
 let g:coc_global_extensions = [
-	    \'coc-markdownlint',
-	    \'coc-highlight',
-	    \'coc-explorer',
-	    \'coc-json',
-	    \'coc-git',
-	    \'coc-tsserver',
-	    \'coc-omnisharp',
-	    \'coc-prettier',
-	    \'coc-angular'
-	    \]
+			\'coc-markdownlint',
+			\'coc-highlight',
+			\'coc-explorer',
+			\'coc-json',
+			\'coc-git',
+			\'coc-tsserver',
+			\'coc-omnisharp',
+			\'coc-prettier',
+			\'coc-angular'
+			\]
 
 let g:lightline = {
-	    \ 'active': {
-		\   'left': [ [ 'mode', 'paste' ],
-		\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-		\ },
-		\ 'component_function': {
-		    \   'gitbranch': 'gitbranch#name'
-		    \ },
-		    \ }
+			\ 'active': {
+				\   'left': [ [ 'mode', 'paste' ],
+				\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+				\ },
+				\ 'component_function': {
+					\   'gitbranch': 'gitbranch#name'
+					\ },
+					\ }
 "Mapping to reload config
 nmap <leader>so :source $HOME\.vimrc<CR>
 nmap <leader>w :w <CR>
@@ -57,13 +58,13 @@ nmap <leader>q :q <CR>
 
 if has("gui_running")
 
-    if has("gui_gtk2")
-	set guifont=Inconsolata\ 12
-    elseif has("gui_macvim")
-	set guifont=Menlo\ Regular:h14
-    elseif has("gui_win32")
-	set guifont=Consolas:h11:cANSI
-    endif
+	if has("gui_gtk2")
+		set guifont=Inconsolata\ 12
+	elseif has("gui_macvim")
+		set guifont=Menlo\ Regular:h14
+	elseif has("gui_win32")
+		set guifont=Consolas:h11:cANSI
+	endif
 endif
 
 " Specify a directory for plugins
@@ -110,8 +111,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug '~/.fzf'
 
-"Plug 'tpope/vim-fugitive'
-
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-filesearch'
 
@@ -137,24 +136,23 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 nmap <F11> :!start explorer /select,%:p
 imap <F11> <Esc><F11>
 inoremap <silent><expr> <Tab>
-	    \ pumvisible() ? "\<C-n>" :
-	    \ <SID>check_back_space() ? "\<Tab>" :
-	    \ coc#refresh()
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<Tab>" :
+			\ coc#refresh()
 nnoremap <Leader>g :<C-u>call gitblame#echo()<CR>
-
 nmap <Leader>nt :NERDTreeFind<CR>
+
 nmap <Leader>s <Plug>(easymotion-s2)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
 
 autocmd BufWritePre * :%s/\s\+$//e
 
