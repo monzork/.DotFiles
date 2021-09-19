@@ -18,7 +18,6 @@ set scrolloff=8
 set sw=4
 set relativenumber
 let mapleader = " "
-set rtp+=~\.fzf
 set laststatus=2
 set backspace=2
 set guioptions-=T
