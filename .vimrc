@@ -38,7 +38,8 @@ let g:coc_global_extensions = [
 			\'coc-tsserver',
 			\'coc-omnisharp',
 			\'coc-prettier',
-			\'coc-angular'
+			\'coc-angular',
+			\'coc-html'
 			\]
 
 let g:lightline = {
@@ -72,8 +73,6 @@ endif
 "
 "
 call plug#begin('~/.vim/plugged')
-" Temas
-Plug 'morhetz/gruvbox'
 "IDE
 Plug 'easymotion/vim-easymotion'
 "Nerdtree
