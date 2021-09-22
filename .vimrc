@@ -1,5 +1,5 @@
 syntax on
-" Conlifcto
+set hidden
 set tabstop=4 softtabstop=4
 set number
 set smartindent
@@ -26,6 +26,7 @@ set guioptions-=L
 set encoding=utf-8
 set rtp+=~/.fzf
 set nowrap
+set shortmess+=c
 set incsearch
 imap jk <Esc>
 
@@ -67,60 +68,36 @@ if has("gui_running")
 	endif
 endif
 
-" Specify a directory for plugins
-" - For Neovim: stdpath('data') . '/plugged'
-" - Avoid using standard Vim directory names like 'plugin'
-"
-"
 call plug#begin('~/.vim/plugged')
-"IDE
 Plug 'easymotion/vim-easymotion'
-"Nerdtree
-
 Plug 'christoomey/vim-tmux-navigator'
-
-Plug 'https://github.com/Quramy/vim-js-pretty-template'
-
-Plug 'https://github.com/leafgarland/typescript-vim'
-
-Plug 'https://github.com/pangloss/vim-javascript'
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'leafgarland/typescript-vim'
+Plug 'pangloss/vim-javascript'
 Plug 'jiangmiao/auto-pairs'
-Plug 'https://github.com/Shougo/vimproc.vim',{'do' :'make'}
 Plug 'mxw/vim-jsx'
-
-
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 Plug 'shmup/vim-sql-syntax'
-Plug 'https://github.com/ycm-core/YouCompleteMe'
-
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'https://github.com/vim-syntastic/syntastic'
-
 Plug 'itchyny/vim-gitbranch'
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'zivyangll/git-blame.vim'
 Plug 'webastien/vim-ctags'
-
-Plug 'https://github.com/editorconfig/editorconfig-vim'
-
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug '~/.fzf'
-
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-filesearch'
-
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
-
 Plug 'hschne/fzf-git'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 call plug#end()
 
 let g:fzf_layout = { 'window': {'width':0.8, 'height':0.8}}
+let NERDTreeShowHidden=1
 let $FZF_DEFAULT_OPTS='--reverse'
 nnoremap <leader>gb :GBranches<CR>
 let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
@@ -137,6 +114,7 @@ function! s:check_back_space() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
 nmap <F11> :!start explorer /select,%:p
 imap <F11> <Esc><F11>
 inoremap <silent><expr> <Tab>
