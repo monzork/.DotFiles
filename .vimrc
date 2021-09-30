@@ -82,6 +82,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'https://github.com/Quramy/vim-js-pretty-template'
 
+"Plug 'mattn/emmet-vim'
 Plug 'https://github.com/leafgarland/typescript-vim'
 
 Plug 'https://github.com/pangloss/vim-javascript'
@@ -155,4 +156,5 @@ nmap <silent> gr <Plug>(coc-references)
 
 autocmd BufWritePre * :%s/\s\+$//e
 
+"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 colorscheme dracula
