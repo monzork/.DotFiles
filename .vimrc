@@ -5,6 +5,10 @@ set number
 set smartindent
 set expandtab
 set noerrorbells
+set shell=powershell
+set shellcmdflag=-c
+set shellquote=\"
+set shellxquote=
 set mouse=a
 set signcolumn=yes
 set shiftwidth=2
@@ -99,7 +103,7 @@ call plug#end()
 let g:fzf_layout = { 'window': {'width':0.8, 'height':0.8}}
 let NERDTreeShowHidden=1
 let $FZF_DEFAULT_OPTS='--reverse'
-nnoremap <leader>gb :GBranches<CR>
+nmap <leader>gb :!"git branch -vv \| fzf \| awk '{print $1}' \| xargs -r -n 1 git checkout"
 let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
@@ -115,7 +119,6 @@ function! s:check_back_space() abort
 		return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-" asdfasdf wj
 nmap <F11> :!start explorer /select,%:p
 imap <F11> <Esc><F11>
 inoremap <silent><expr> <Tab>
