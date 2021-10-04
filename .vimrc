@@ -115,6 +115,7 @@ function! s:check_back_space() abort
 		return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" asdfasdf wj
 nmap <F11> :!start explorer /select,%:p
 imap <F11> <Esc><F11>
 inoremap <silent><expr> <Tab>
