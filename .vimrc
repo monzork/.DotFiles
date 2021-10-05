@@ -140,4 +140,5 @@ nmap <leader>f  <Plug>(coc-format-selected)
 autocmd BufWritePre * :%s/\s\+$//e
 
 autocmd BufRead,BufNewFile *.htm,*.html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufRead *.cshtml set syntax=html
 colorscheme dracula
