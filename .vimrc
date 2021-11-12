@@ -2,6 +2,7 @@ syntax on
 set hidden
 set tabstop=2 softtabstop=2
 set number
+set autoread
 set smartindent
 set expandtab
 set noerrorbells
