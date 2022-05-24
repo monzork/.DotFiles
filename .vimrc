@@ -53,7 +53,7 @@ let g:lightline = {
 										\ },
 										\ }
 "Mapping to reload config
-nmap <leader>so :source $HOME\.vimrc<CR>
+nmap <leader>so :source $HOME/.vimrc<CR>
 nmap <leader>w :w <CR>
 nmap <leader>q :q <CR>
 
@@ -88,6 +88,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'stsewd/fzf-checkout.vim'
 Plug '~/.fzf'
+Plug 'fatih/vim-go'
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-filesearch'
 Plug 'scrooloose/nerdtree'
