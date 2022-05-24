@@ -6,10 +6,6 @@ set autoread
 set smartindent
 set expandtab
 set noerrorbells
-set shell=powershell
-set shellcmdflag=-c
-set shellquote=\"
-set shellxquote=
 set mouse=a
 set signcolumn=yes
 set shiftwidth=2
