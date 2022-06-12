@@ -41,7 +41,8 @@ let g:coc_global_extensions = [
 						\'coc-omnisharp',
 						\'coc-prettier',
 						\'coc-angular',
-						\'coc-html'
+						\'coc-html',
+            \'coc-go'
 						\]
 let g:lightline = {
 						\ 'active': {
@@ -53,7 +54,7 @@ let g:lightline = {
 										\ },
 										\ }
 "Mapping to reload config
-nmap <leader>so :source $HOME\.vimrc<CR>
+nmap <leader>so :source $HOME/.vimrc<CR>
 nmap <leader>w :w <CR>
 nmap <leader>q :q <CR>
 
@@ -75,6 +76,8 @@ Plug 'Quramy/vim-js-pretty-template'
 Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'jiangmiao/auto-pairs'
+Plug 'w0rp/ale'
+Plug 'fatih/vim-go'
 Plug 'mxw/vim-jsx'
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 Plug 'shmup/vim-sql-syntax'
@@ -99,6 +102,16 @@ call plug#end()
 
 let g:fzf_layout = { 'window': {'width':0.8, 'height':0.8}}
 let NERDTreeShowHidden=1
+
+let g:ale_fixers = {
+      \ 'javascript': ['eslint']
+      \}
+
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+
+let g:ale_fix_on_save = 1
+
 let $FZF_DEFAULT_OPTS='--reverse'
 nmap <leader>gb :!"git branch -vv \| fzf \| awk '{print $1}' \| xargs -r -n 1 git checkout"
 let g:fzf_preview_window = ['right:hidden', 'ctrl-/']
@@ -135,7 +148,6 @@ vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 "command! -nargs=0 Prettier :CocCommand prettier.formatFile
 autocmd BufWritePre * :%s/\s\+$//e
-
 autocmd BufRead,BufNewFile *.htm,*.html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead *.cshtml set syntax=html
 colorscheme dracula
