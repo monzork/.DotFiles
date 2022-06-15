@@ -74,19 +74,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
-Plug 'fatih/vim-go'
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
-Plug 'shmup/vim-sql-syntax'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'puremourning/vimspector'
 Plug 'itchyny/vim-gitbranch'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mvolkmann/vim-tag-comment'
 Plug 'zivyangll/git-blame.vim'
 Plug 'webastien/vim-ctags'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'stsewd/fzf-checkout.vim'
-Plug '~/.fzf'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-filesearch'
@@ -113,6 +109,20 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
+nnoremap <leader>da :call vimspector#Launch()<CR>
+nnoremap <leader>dx :call vimspector#Reset()<CR>
+
+nnoremap <S-k> :call vimspector#StepOut()<CR>
+nnoremap <S-l> :call vimspector#StepInto()<CR>
+nnoremap <S-j> :call vimspector#StepOver()<CR>
+
+nnoremap <leader>d_ :call vimspector#Restart()<CR>
+nnoremap <leader>dn :call vimspector#Continue()<CR>
+nnoremap <leader>drc :call vimspector#RunToCursor()<CR>
+nnoremap <leader>dh :call vimspector#ToogleBreakpoint()<CR>
+nnoremap <leader>de :call vimspector#ToogleConditionalBreakpoint()<CR>
+nnoremap <leader>dX :call vimspector#ClearBreakpoints()<CR>
 
 nmap <F11> :!start explorer /select,%:p
 imap <F11> <Esc><F11>

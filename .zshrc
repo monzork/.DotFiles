@@ -110,6 +110,7 @@ source $ZSH/oh-my-zsh.sh
 #
 #
 
+alias vimrc='vim ~/.DotFiles/.vimrc'
 
 #
 # Example aliases
