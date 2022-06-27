@@ -41,6 +41,7 @@ let g:coc_global_extensions = [
       \'coc-omnisharp',
       \'coc-prettier',
       \'coc-angular',
+      \'coc-eslint',
       \'coc-html',
       \'coc-prettier',
       \]
