@@ -42,6 +42,7 @@ let g:coc_global_extensions = [
       \'coc-omnisharp',
       \'coc-prettier',
       \'coc-angular',
+      \'coc-eslint',
       \'coc-html',
       \'coc-prettier',
       \]
@@ -72,10 +73,8 @@ if has("gui_running")
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jiangmiao/auto-pairs'
-Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'puremourning/vimspector'
 Plug 'itchyny/vim-gitbranch'
@@ -84,15 +83,13 @@ Plug 'mvolkmann/vim-tag-comment'
 Plug 'zivyangll/git-blame.vim'
 Plug 'webastien/vim-ctags'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdcommenter'
 Plug 'itchyny/lightline.vim'
-Plug 'jeetsukumaran/vim-filesearch'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
-Plug 'hschne/fzf-git'
 call plug#end()
 
-let g:fzf_layout = { 'window': {'width':0.8, 'height':0.8}}
 let NERDTreeShowHidden=1
 
 let $FZF_DEFAULT_OPTS='--reverse'
@@ -133,12 +130,13 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 nnoremap <Leader>g :<C-u>call gitblame#echo()<CR>
 nmap <Leader>nt :NERDTreeFind<CR>
-nmap <Leader>cp :FZF<CR>
+nmap <Leader>cp :Files<CR>
+nmap <Leader>bf :Buffers<CR>
+nmap <Leader>vt :vert term<CR>
 nmap <Leader>s <Plug>(easymotion-s2)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 colorscheme dracula
