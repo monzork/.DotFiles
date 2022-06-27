@@ -5,6 +5,7 @@ set number
 set autoread
 set smartindent
 set expandtab
+set tabstop=2
 set noerrorbells
 set mouse=a
 set signcolumn=yes
