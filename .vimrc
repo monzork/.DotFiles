@@ -28,6 +28,7 @@ set guioptions-=L
 set encoding=utf-8
 set rtp+=~/.fzf
 set nowrap
+set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow
 set shortmess+=c
 set incsearch
 imap jk <Esc>
@@ -114,6 +115,11 @@ nnoremap <leader>dx :call vimspector#Reset()<CR>
 nnoremap <S-k> :call vimspector#StepOut()<CR>
 nnoremap <S-l> :call vimspector#StepInto()<CR>
 nnoremap <S-j> :call vimspector#StepOver()<CR>
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 nnoremap <leader>d_ :call vimspector#Restart()<CR>
 nnoremap <leader>dn :call vimspector#Continue()<CR>
