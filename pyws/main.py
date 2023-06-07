@@ -40,8 +40,9 @@ try:
 except TimeoutException:
     print("Loading took too much time!")
 
+
 chat_name = driver.find_element(
-    by="xpath", value="//*[@id=\"pane-side\"]/div[1]/div/div/div[1]")
+    by="xpath", value="//*[@aria-selected=\"false\"]")
 chat_name.click()
 time.sleep(wait)
 
