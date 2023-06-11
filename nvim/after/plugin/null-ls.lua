@@ -16,7 +16,7 @@ local on_attach = function(_, bufnr)
 end
 
 null_ls.setup({
-    debug = true,
+    debug = false,
     sources = {
         null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.formatting.prettierd,
