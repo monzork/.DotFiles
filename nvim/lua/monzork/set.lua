@@ -4,7 +4,6 @@ vim.opt.relativenumber = true
 local cwd = vim.fn.getcwd(-1, -1)
 
 if string.match(cwd, "/phonecheck/") then
-    print("phonecheck", cwd)
     vim.opt.tabstop = 2
     vim.opt.softtabstop = 2
     vim.opt.shiftwidth = 2
