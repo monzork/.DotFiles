@@ -37,12 +37,10 @@ return require("packer").startup(function(use)
                 end,
             },
             { "williamboman/mason-lspconfig.nvim" }, -- Optional
-            { "jay-babu/mason-null-ls.nvim" },
-            { "jose-elias-alvarez/null-ls.nvim" },
             -- Autocompletion
-            { "hrsh7th/nvim-cmp" },     -- Required
-            { "hrsh7th/cmp-nvim-lsp" }, -- Required
-            { "L3MON4D3/LuaSnip" },     -- Required
+            { "hrsh7th/nvim-cmp" },                  -- Required
+            { "hrsh7th/cmp-nvim-lsp" },              -- Required
+            { "L3MON4D3/LuaSnip" },                  -- Required
         },
     })
 end)
