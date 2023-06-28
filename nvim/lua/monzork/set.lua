@@ -15,8 +15,6 @@ end
 
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
-vim.o.breakident = true
-
 
 vim.opt.expandtab = true
 vim.opt.smartindent = true
