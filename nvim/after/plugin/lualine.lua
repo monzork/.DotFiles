@@ -4,5 +4,6 @@ require('lualine').setup {
         theme = 'auto',
         component_separators = '|',
         section_separators = '',
+        path = 1
     }
 }
