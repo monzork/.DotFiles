@@ -18,6 +18,8 @@ return require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+
     use({
         "nvim-telescope/telescope.nvim",
         tag = "0.1.1",
@@ -30,6 +32,14 @@ return require("packer").startup(function(use)
             vim.cmd([[colorscheme rose-pine]])
         end,
     })
+
+    use({
+        'leoluz/nvim-dap-go',
+        requires = {
+            'mfussenegger/nvim-dap'
+        }
+    })
+
     use({
         "nvim-treesitter/nvim-treesitter-textobjects",
         after = "nvim-treesitter",
@@ -38,6 +48,7 @@ return require("packer").startup(function(use)
         },
         build = ':TSUpdate',
     })
+
     use("lukas-reineke/indent-blankline.nvim")
     use("mbbill/undotree")
     use("tpope/vim-fugitive")

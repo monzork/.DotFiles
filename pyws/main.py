@@ -25,9 +25,8 @@ if message is None:
 options = Options()
 options.add_argument('--headless=new')
 options.add_argument(
-    "user-data-dir=C:\\Users\\Username\\AppData\\Local\\Google\\Chrome\\User Data")
-driver = webdriver.Chrome(service=Service(
-    ChromeDriverManager().install()), options=options)
+    "user-data-dir=C:\\Users\\malon\\AppData\\Local\\Google\\Chrome\\User Data")
+driver = webdriver.Chrome(service=Service( ChromeDriverManager().install()), options=options) 
 driver.get("https://web.whatsapp.com/")
 driver.maximize_window()
 text_area = ""
