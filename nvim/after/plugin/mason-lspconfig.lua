@@ -10,6 +10,6 @@ require("mason-lspconfig").setup {
         "csharp_ls",
         "angularls",
         "bashls",
-        "jsonls"
+        "jsonls",
     },
 }
