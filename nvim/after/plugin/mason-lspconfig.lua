@@ -11,5 +11,6 @@ require("mason-lspconfig").setup {
         "angularls",
         "bashls",
         "jsonls",
+        "gopls",
     },
 }
