@@ -18,12 +18,10 @@ return require("packer").startup(function(use)
     -- Packer can manage itself
     use("wbthomason/packer.nvim")
 
-    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
-    use("theHamsta/nvim-dap-virtual-text")
 
     use({
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.1",
+        tag = "0.1.5",
         requires = { { "nvim-lua/plenary.nvim" } },
     })
     use({
@@ -34,12 +32,6 @@ return require("packer").startup(function(use)
         end,
     })
 
-    use({
-        'leoluz/nvim-dap-go',
-        requires = {
-            'mfussenegger/nvim-dap'
-        }
-    })
 
     use({
         "nvim-treesitter/nvim-treesitter-textobjects",

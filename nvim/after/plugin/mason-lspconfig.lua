@@ -7,10 +7,8 @@ require("mason-lspconfig").setup {
         "pyright",
         "html",
         "cssls",
-        "csharp_ls",
         "angularls",
         "bashls",
         "jsonls",
-        "gopls",
     },
 }
