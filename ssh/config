@@ -1,0 +1,49 @@
+Host pcbastion
+	Hostname bastion.stg.phonecheck.com
+	user ec2-user
+	Port 22
+	IdentityFile ~/.ssh/bastion-staging.pem
+
+Host green
+        Hostname 54.176.144.181
+        user ec2-user
+        Port 22
+        ProxyCommand ssh pcbastion -W %h:%p
+        IdentityFile ~/.ssh/id_rsa
+
+Host blue
+        Hostname 52.52.117.108
+        user ec2-user
+        Port 22
+        ProxyCommand ssh pcbastion -W %h:%p
+        IdentityFile ~/.ssh/id_rsa
+
+Host marlon-arm
+    Hostname ec2-13-56-91-218.us-west-1.compute.amazonaws.com
+    user ec2-user
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+Host carlos-arm 
+    Hostname ec2-54-215-25-52.us-west-1.compute.amazonaws.com
+    user ec2-user
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+Host eu
+    Hostname ec2-54-228-74-67.eu-west-1.compute.amazonaws.com
+    user ec2-user
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+Host green-in
+    Hostname ec2-18-144-26-105.us-west-1.compute.amazonaws.com
+    user ec2-user
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+Host chat-bot-api
+    Hostname ec2-54-162-221-224.compute-1.amazonaws.com
+    user ec2-user
+    Port 22
+    IdentityFile ~/.ssh/chat-bot-api.pem

@@ -132,3 +132,8 @@ export NVM_DIR="$HOME/.nvm"
 
 alias wsmessage='py ~/.DotFiles/pyws/main.py'
 alias py=python3
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+export PATH=/home/monzork/.meteor:$PATH
