@@ -32,6 +32,8 @@ return require("packer").startup(function(use)
         end,
     })
 
+    use("github/copilot.vim")
+
 
     use({
         "nvim-treesitter/nvim-treesitter-textobjects",
