@@ -8,8 +8,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		map("<leader>vrn", vim.lsp.buf.rename, "[R]e[n]ame")
 		map("<leader>vd", vim.diagnostic.open_float, "Show Diagnostics")
-		-- map("[d", vim.diagnostic.goto_next, "Next Diagnostic")
-		-- map("]d", vim.diagnostic.goto_prev, "Prev Diagnostic")
+		map("[d", vim.diagnostic.goto_next, "Next Diagnostic")
+		map("]d", vim.diagnostic.goto_prev, "Prev Diagnostic")
 		map("<leader>vca", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
 		map("gr", require("telescope.builtin").lsp_references, "References")
 		map("gI", require("telescope.builtin").lsp_implementations, "Implementations")
@@ -110,6 +110,8 @@ vim.list_extend(ensure_installed, {
 	"angularls",
 	"bashls",
 	"jsonls",
+	"emmet_language_server",
+	"gopls",
 })
 
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
