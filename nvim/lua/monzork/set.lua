@@ -51,6 +51,14 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+vim.api.nvim_set_keymap('n', '<Leader>t', ':tabnew | terminal<CR>', { noremap = true, silent = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        vim.cmd('tabnew | terminal')
+        vim.cmd('tabprevious')
+    end,
+})
+
 vim.o.completeopt = 'menuone,noselect'
 
 vim.opt.colorcolumn = "140"
