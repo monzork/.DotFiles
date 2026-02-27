@@ -5,3 +5,4 @@ alias pc-prod-sy-db-tunnel='ssh -g -N -L 3311:core-production-aurora3-cluster.cl
 alias pc-stage-sy-db-tunnel='ssh -g -N -L 3309:core-staging-cluster.cluster-cewdwgf3cuah.us-west-1.rds.amazonaws.com:3306 -i ~/.ssh/bastion-staging.pem ec2-user@bastion.stg.phonecheck.com'
 alias pc-proxy-tunnel='ssh -g -N -L 3001:ec2-184-72-30-11.us-west-1.compute.amazonaws.com:3000 -i ~/.ssh/bastion-staging.pem ec2-user@bastion.stg.phonecheck.com'
 alias pm2-start-all='pm2 delete all; pm2-flush-all; pm2 start ~/code/phonecheck/core/pm2.config.js; pm2 logs'
+alias pc-redis-prod='ssh -g -N -L 6380:master.core-api-prd.rntfmn.usw1.cache.amazonaws.com:6379 -i ~/.ssh/id_rsa ec2-user@ec2-13-56-91-218.us-west-1.compute.amazonaws.com'
