@@ -1,4 +1,5 @@
 export NPM_TOKEN="encrypted_pat_phonecheck"
+export JIRA_API_TOKEN="decrypted_jira_phonecheck"
 
 alias pc-eu-prod-util-tunnel='ssh -g -N -L 3304:phonecheck-prod-aurora-cluster-clone-prod-rw.cluster-custom-cg30qgkkaxpu.eu-west-1.rds.amazonaws.com:3306 -i ~/.ssh/id_rsa ec2-user@ec2-54-228-74-67.eu-west-1.compute.amazonaws.com'
 alias pc-prod-sy-db-tunnel='ssh -g -N -L 3311:core-production-aurora3-cluster.cluster-cewdwgf3cuah.us-west-1.rds.amazonaws.com:3306 -i ~/.ssh/bastion-staging.pem ec2-user@bastion.stg.phonecheck.com'

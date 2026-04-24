@@ -139,3 +139,4 @@ export PATH=/home/monzork/.meteor:$PATH
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=/usr/local/bin:$PATH
 export CONTINUE_CONFIG="$HOME/.continue/config.yaml"
+export PATH=$PATH:$HOME/go/bin
