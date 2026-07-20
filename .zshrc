@@ -136,7 +136,11 @@ alias py=python3
 
 # Load Angular CLI autocompletion.
 export PATH=/home/monzork/.meteor:$PATH
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH="$HOME/.local/opt/nvim-linux-x86_64/bin:$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=/usr/local/bin:$PATH
 export CONTINUE_CONFIG="$HOME/.continue/config.yaml"
 export PATH=$PATH:$HOME/go/bin
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/monzork/.local/bin:$PATH"

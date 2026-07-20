@@ -28,16 +28,17 @@ require("lazy").setup({
         ---@module 'avante'
         ---@type avante.Config
         opts = {
-            -- add any opts here
-            -- this file can contain specific instructions for your project
             instructions_file = "avante.md",
-            -- for example
-            provider = "bedrock",
-            providers = {
-                bedrock = {
-                    model = "openai.gpt-oss-20b-1:0",
-                    aws_region = "us-east-1",
-                    aws_profile = "default",
+            provider = "gemini-cli",
+            acp_providers = {
+                ["gemini-cli"] = {
+                    command = "gemini",
+                    -- args = { "--experimental-acp" },
+                },
+            },
+            mappings = {
+                files = {
+                    add_current = "<leader>ag",
                 },
             },
         },
@@ -78,6 +79,15 @@ require("lazy").setup({
                 },
                 ft = { "markdown", "Avante" },
             },
+        },
+    },
+    {
+        "coder/claudecode.nvim",
+        dependencies = { "folke/snacks.nvim" },
+        config = true,
+        keys = {
+            { "<leader>ac", "<cmd>ClaudeCode<cr>",     desc = "Toggle Claude Code" },
+            { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v",                 desc = "Send selection to Claude" },
         },
     },
     "nvim-lualine/lualine.nvim",
@@ -253,29 +263,42 @@ require("lazy").setup({
         },
     },
     {
+        -- main branch requires Neovim 0.12+ and tree-sitter-cli; uses the new
+        -- install()/vim.treesitter.start() API (configs.lua was removed)
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
-        main = "nvim-treesitter.configs", -- Sets main module to use for opts
-        opts = {
-            ensure_installed = {
+        config = function()
+            require("nvim-treesitter").install({
+                "angular",
                 "bash",
                 "c",
+                "c_sharp",
+                "cpp",
                 "diff",
+                "go",
                 "html",
+                "javascript",
                 "lua",
                 "luadoc",
                 "markdown",
                 "markdown_inline",
+                "python",
                 "query",
+                "rust",
+                "tsx",
+                "typescript",
                 "vim",
                 "vimdoc",
-            },
-            auto_install = true,
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = { "ruby" },
-            },
-            indent = { enable = true, disable = { "ruby" } },
-        },
+            })
+            vim.api.nvim_create_autocmd("FileType", {
+                callback = function()
+                    if pcall(vim.treesitter.start) then
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end,
+            })
+        end,
     },
 })
