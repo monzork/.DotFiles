@@ -1,9 +1,17 @@
 #!/bin/bash
-declare -A os=( ["ubuntu"]="apt" ["fedora"]="dnf" )
-echo "Select os ubuntu/fedora"
+declare -A os=( ["ubuntu"]="apt" ["fedora"]="dnf" ["arch"]="pacman" )
+echo "Select os ubuntu/fedora/arch"
 read currentOS
 currentOS="${currentOS,,}"
-sudo ${os[$currentOS]} install git curl zsh wget gpg
+if [[ "$currentOS" = "arch" ]]
+then
+  sudo pacman -Sy --needed --noconfirm git curl zsh wget gnupg base-devel
+  git clone https://aur.archlinux.org/yay.git /tmp/yay
+  (cd /tmp/yay && makepkg -si --noconfirm)
+  rm -rf /tmp/yay
+else
+  sudo ${os[$currentOS]} install git curl zsh wget gpg
+fi
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 cd ~
@@ -51,7 +59,7 @@ then
 
 fi
 
-if "$currentOS" = "fedora"
+if [[ "$currentOS" = "fedora" ]]
 then
   sudo ${os[$currentOS]} upgrade --refresh -y
   sudo ${os[$currentOS]} install dnf-plugins-core -y
@@ -62,6 +70,12 @@ then
 
   dnf check-update
   sudo dnf install code
+fi
+
+if [[ "$currentOS" = "arch" ]]
+then
+  sudo pacman -S --noconfirm docker docker-compose
+  sudo systemctl enable --now docker
 fi
 
 sudo snap install discord
