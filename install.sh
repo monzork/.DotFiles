@@ -27,6 +27,14 @@ done
 
 mkdir -p ~/.config/zsh
 ln -sf ~/.DotFiles/claude-account.zsh ~/.config/zsh/claude-account.zsh
+ln -sf ~/.DotFiles/nvim ~/.config/nvim
+
+# Neovim (latest release, matches the path already in .zshrc)
+mkdir -p ~/.local/opt
+rm -rf ~/.local/opt/nvim-linux-x86_64
+curl -fsSL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz -o /tmp/nvim.tar.gz
+tar -C ~/.local/opt -xzf /tmp/nvim.tar.gz
+rm /tmp/nvim.tar.gz
 
 # Visual Studio Code instalation
 echo $currentOS
