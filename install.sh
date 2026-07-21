@@ -17,6 +17,9 @@ do
   ln -s .DotFiles/$file_name $file_name
 done
 
+mkdir -p ~/.config/zsh
+ln -sf ~/.DotFiles/claude-account.zsh ~/.config/zsh/claude-account.zsh
+
 # Visual Studio Code instalation
 echo $currentOS
 if [[ $currentOS = "ubuntu" ]]
