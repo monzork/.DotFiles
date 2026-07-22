@@ -159,29 +159,24 @@ fi
 # Visual Studio Code instalation
 echo "$currentOS"
 if [[ $currentOS == "ubuntu" ]]; then
-    sudo apt-get install wget gpg
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
-    sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+    sudo apt-get install -y wget gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >/tmp/packages.microsoft.gpg
+    sudo install -o root -g root -m 644 /tmp/packages.microsoft.gpg /etc/apt/trusted.gpg.d/
     sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-    rm -f packages.microsoft.gpg
-    sudo apt install apt-transport-https
+    rm -f /tmp/packages.microsoft.gpg
+    sudo apt install -y apt-transport-https
     sudo apt update
-    sudo apt install code
+    sudo apt install -y code
 
-    sudo apt-get remove docker docker-engine docker.io containerd runc
-    sudo apt-get install \
+    sudo apt-get remove -y docker docker-engine docker.io containerd runc || true
+    sudo apt-get install -y \
         ca-certificates \
         curl \
         gnupg \
-        lsb-release -y
+        lsb-release
     sudo mkdir -p /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-    sudo apt-get install gnupg -y
-    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-    echo "deb [ arch=amd64,arm64  ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
-    sudo apt-get update -y
-    sudo apt-get install -y mongodb-org
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 fi
 
 if [[ "$currentOS" == "arch" ]]; then
@@ -223,7 +218,11 @@ esac
 
 # Redis Stack (includes RedisJSON) via docker instead of a native install
 if command -v docker >/dev/null 2>&1; then
-    sudo docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+    if sudo docker ps -a --format '{{.Names}}' | grep -qx redis-stack; then
+        echo "  redis-stack container already exists, skipping"
+    else
+        sudo docker run -d --name redis-stack --restart unless-stopped -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+    fi
 else
     echo "docker not available, skipping redis-stack container"
 fi

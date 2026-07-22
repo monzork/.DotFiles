@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("<leader>lf", vim.lsp.buf.format, "Format")
         map("gO", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
         map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-        map("grt", require("telescope.builtin").lsp_type_definitions, "Type Definitions")
+        map("gy", require("telescope.builtin").lsp_type_definitions, "Type Definitions")
 
         local function client_supports_method(client, method, bufnr)
             if vim.fn.has("nvim-0.11") == 1 then
