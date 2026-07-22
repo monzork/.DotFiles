@@ -3,6 +3,11 @@ declare -A os=( ["ubuntu"]="apt" ["fedora"]="dnf" ["arch"]="pacman" )
 echo "Select os ubuntu/fedora/arch"
 read currentOS
 currentOS="${currentOS,,}"
+if [[ -z "${os[$currentOS]:-}" ]]
+then
+  echo "Unknown OS '$currentOS' — expected one of: ${!os[*]}"
+  exit 1
+fi
 if [[ "$currentOS" = "arch" ]]
 then
   sudo pacman -Sy --needed --noconfirm git curl zsh wget gnupg base-devel
@@ -12,7 +17,7 @@ then
 else
   sudo ${os[$currentOS]} install git curl zsh wget gpg
 fi
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 cd ~
 git clone git@github.com:monzork/.DotFiles.git
@@ -20,9 +25,10 @@ cd .DotFiles
 # Read all files inside .DotFiles and use it as array
 files_array=$(ls -A | grep "^\." | grep -v ".git")
 
+cd ~
 for file_name in $files_array
 do
-  ln -s .DotFiles/$file_name $file_name
+  ln -sf .DotFiles/$file_name $file_name
 done
 
 mkdir -p ~/.config/zsh
@@ -61,7 +67,7 @@ then
   wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
   sudo apt-get install gnupg -y
   wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-  echo "deb [ arch=amd64,arm64  ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+  echo "deb [ arch=amd64,arm64  ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
   sudo apt-get update -y
   sudo apt-get install -y mongodb-org
 
@@ -86,5 +92,10 @@ then
   sudo systemctl enable --now docker
 fi
 
-sudo snap install discord
+if command -v snap >/dev/null 2>&1
+then
+  sudo snap install discord
+else
+  echo "snap not available, skipping discord install"
+fi
 
