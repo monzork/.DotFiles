@@ -30,8 +30,8 @@ link() {
     printf '  %s -> %s\n' "$dest" "$src"
 }
 
-declare -A os=(["ubuntu"]="apt" ["fedora"]="dnf" ["arch"]="pacman")
-echo "Select os ubuntu/fedora/arch"
+declare -A os=(["ubuntu"]="apt" ["arch"]="pacman")
+echo "Select os ubuntu/arch"
 read -r currentOS
 currentOS="${currentOS,,}"
 if [[ -z "${os[$currentOS]:-}" ]]; then
@@ -118,9 +118,42 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
 if command -v nvm >/dev/null 2>&1; then
     nvm install --lts
-    npm i -g pm2 @anthropic-ai/claude-code
+    npm i -g pm2 @anthropic-ai/claude-code tree-sitter-cli
 else
-    warn "nvm unavailable, skipping node/pm2/claude-code"
+    warn "nvm unavailable, skipping node/pm2/claude-code/tree-sitter-cli"
+fi
+
+info "Neovim runtime deps (search tools, go, clipboard, build tools)"
+# ripgrep/fd back telescope's live_grep and find_files; go builds gopls
+# (mason installs it via `go install`); make+gcc build telescope-fzf-native
+# and luasnip's jsregexp step; a clipboard tool backs `clipboard=unnamedplus`
+# (set.lua) -- wl-clipboard under HyDE/Wayland, xclip as the X11 fallback.
+if [[ "$currentOS" == "arch" ]]; then
+    sudo pacman -S --needed --noconfirm ripgrep fd unzip go xclip
+    is_hyde && sudo pacman -S --needed --noconfirm wl-clipboard
+else
+    sudo apt-get install -y ripgrep fd-find unzip golang-go xclip wl-clipboard build-essential
+    # Debian/Ubuntu ship the fd binary as `fdfind` to avoid a name clash;
+    # nvim-telescope and everything else expects `fd` on PATH.
+    if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
+        mkdir -p "$HOME/.local/bin"
+        ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
+    fi
+fi
+
+info "Nerd Font (JetBrainsMono)"
+# lua/monzork/set.lua sets have_nerd_font = true, which nvim-web-devicons and
+# the diagnostic signs rely on for icon glyphs -- without an actual Nerd Font
+# installed those render as boxes/question marks.
+font_dir="$HOME/.local/share/fonts/JetBrainsMonoNerdFont"
+if [[ ! -d "$font_dir" ]]; then
+    mkdir -p "$font_dir"
+    curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz -o /tmp/nerd-font.tar.xz &&
+        tar -C "$font_dir" -xJf /tmp/nerd-font.tar.xz
+    rm -f /tmp/nerd-font.tar.xz
+    command -v fc-cache >/dev/null 2>&1 && fc-cache -f "$font_dir"
+else
+    echo "  already present at $font_dir"
 fi
 
 # Visual Studio Code instalation
@@ -149,18 +182,6 @@ if [[ $currentOS == "ubuntu" ]]; then
     echo "deb [ arch=amd64,arm64  ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
     sudo apt-get update -y
     sudo apt-get install -y mongodb-org
-fi
-
-if [[ "$currentOS" == "fedora" ]]; then
-    sudo "${os[$currentOS]}" upgrade --refresh -y
-    sudo "${os[$currentOS]}" install dnf-plugins-core -y
-    sudo "${os[$currentOS]}" install snapd -y
-    sudo snap install corelist
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-
-    dnf check-update
-    sudo dnf install code
 fi
 
 if [[ "$currentOS" == "arch" ]]; then
@@ -196,14 +217,6 @@ ubuntu)
         sudo snap install dbeaver-ce
     else
         warn "snap not available, skipping teams/slack/dbeaver"
-    fi
-    ;;
-fedora)
-    if command -v snap >/dev/null 2>&1; then
-        sudo snap install postman
-        sudo snap install dbeaver-ce
-    else
-        warn "snap not available, skipping postman/dbeaver"
     fi
     ;;
 esac

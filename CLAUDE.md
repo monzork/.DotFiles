@@ -1,6 +1,6 @@
 # .DotFiles
 
-Personal dotfiles for Arch/Hyprland, Ubuntu and Fedora. `install.sh` symlinks
+Personal dotfiles for Arch/Hyprland and Ubuntu. `install.sh` symlinks
 tracked files into place; nothing here is copied, so **editing a file in this
 repo edits the live config**.
 
