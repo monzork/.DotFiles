@@ -42,6 +42,10 @@ curl -fsSL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-
 tar -C ~/.local/opt -xzf /tmp/nvim.tar.gz
 rm /tmp/nvim.tar.gz
 
+# NVM (latest release; .zshrc already sources $HOME/.nvm/nvm.sh)
+nvm_latest=$(curl -fsSL https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_latest}/install.sh" | bash
+
 # Visual Studio Code instalation
 echo $currentOS
 if [[ $currentOS = "ubuntu" ]]
@@ -97,5 +101,13 @@ then
   sudo snap install discord
 else
   echo "snap not available, skipping discord install"
+fi
+
+# Redis Stack (includes RedisJSON) via docker instead of a native install
+if command -v docker >/dev/null 2>&1
+then
+  sudo docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 redis/redis-stack:latest
+else
+  echo "docker not available, skipping redis-stack container"
 fi
 

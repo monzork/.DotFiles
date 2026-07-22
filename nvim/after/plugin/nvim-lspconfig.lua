@@ -111,6 +111,7 @@ vim.list_extend(ensure_installed, {
 	"jsonls",
 	"emmet_language_server",
 	"gopls",
+	"stylua",
 })
 
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

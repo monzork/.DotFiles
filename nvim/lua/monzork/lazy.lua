@@ -15,7 +15,21 @@ rtp:prepend(lazypath)
 
 require("lazy").setup({
     { "NMAC427/guess-indent.nvim", opts = {} }, -- Detect tabstop and shiftwidth automatically
-    "numToStr/Comment.nvim",
+    {
+        "folke/snacks.nvim",
+        opts = {
+            notifier = { enabled = true },
+        },
+    },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = "markdown",
+        opts = {},
+    },
+    {
+        "sindrets/diffview.nvim",
+        cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    },
     {
         "coder/claudecode.nvim",
         dependencies = { "folke/snacks.nvim" },

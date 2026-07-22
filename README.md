@@ -12,12 +12,13 @@ Installation of zsh-autosuggestions after powerlevel10k
 
 Create a symlink `ln -s .DotFiles/.zshrc .zshrc`
 
-## Redis-stack-server (JSON capable)
+## Redis Stack (JSON capable)
 
-Install redis-stack-server
-[redis-stack-server](https://redis.io/docs/getting-started/install-stack/linux/)
+Installed by `install.sh` as a docker container (`redis/redis-stack`, includes RedisJSON) when docker is available.
+[redis-stack](https://redis.io/docs/getting-started/install-stack/docker/)
 
 ## NVM
+Installed by `install.sh`.
 [NVM](https://github.com/nvm-sh/nvm)
 
 ## PM2
