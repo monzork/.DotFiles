@@ -1,6 +1,17 @@
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
     callback = function(event)
+        -- fugitive/diffview/gitsigns preview buffers inherit the source
+        -- file's filetype (e.g. "go") for highlighting, so the FileType
+        -- autocmd still attaches a client. Their buffer names aren't real
+        -- file:// URIs, so gopls fails to parse the didOpen URI and spams
+        -- "document uri scheme" JSON-RPC errors. Detach immediately.
+        local bufname = vim.api.nvim_buf_get_name(event.buf)
+        if bufname:match("^fugitive://") or bufname:match("^diffview://") or bufname:match("^gitsigns://") then
+            vim.lsp.buf_detach_client(event.buf, event.data.client_id)
+            return
+        end
+
         local map = function(keys, func, desc, mode)
             mode = mode or "n"
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
