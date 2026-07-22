@@ -8,6 +8,9 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# null_glob: without it an empty ~/.config/zsh sources the literal glob string
+# and errors on every shell start.
+setopt local_options null_glob
 for conf in "$HOME/.config/zsh/"*.zsh; do
   source "${conf}"
 done
