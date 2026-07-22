@@ -100,7 +100,6 @@ local servers = {
 
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
-	"lua_ls",
 	"ts_ls",
 	"eslint",
 	"rust_analyzer",

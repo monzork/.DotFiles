@@ -14,7 +14,7 @@ local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
 require("lazy").setup({
-    "NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+    { "NMAC427/guess-indent.nvim", opts = {} }, -- Detect tabstop and shiftwidth automatically
     "numToStr/Comment.nvim",
     {
         "coder/claudecode.nvim",
@@ -32,10 +32,7 @@ require("lazy").setup({
     {
         "rose-pine/neovim",
         priority = 1000,
-        as = "rose-pine",
-        config = function()
-            vim.cmd([[colorscheme rose-pine]])
-        end,
+        name = "rose-pine",
     },
     { -- Adds git related signs to the gutter, as well as utilities for managing changes
         "lewis6991/gitsigns.nvim",

@@ -1,25 +1,19 @@
+vim.g.have_nerd_font = true
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-local cwd = vim.fn.getcwd(-1, -1)
-
-if string.match(cwd, "/phonecheck/") then
-    vim.opt.tabstop = 2
-    vim.opt.softtabstop = 2
-    vim.opt.shiftwidth = 2
-else
-    vim.opt.tabstop = 4
-    vim.opt.softtabstop = 4
-    vim.opt.shiftwidth = 4
-end
+-- per-project indent overrides belong in that project's .editorconfig
+-- (nvim >=0.9 reads it automatically); this is just the fallback default
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 
 vim.opt.expandtab = true
 vim.opt.smartindent = true
-
-vim.opt.wrap = false
 
 vim.opt.wrap = false
 
@@ -62,5 +56,3 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.o.completeopt = 'menuone,noselect'
 
 vim.opt.colorcolumn = "140"
-
-vim.g.mapleader = " "
