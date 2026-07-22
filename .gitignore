@@ -12,3 +12,7 @@ claude/shell-snapshots/
 
 # install.sh backups
 *.bak.*
+
+# Plaintext secrets never belong in git -- only their ansible-vault
+# encrypted counterparts under keys/ and ssh/ are tracked.
+/phonecheck.zsh

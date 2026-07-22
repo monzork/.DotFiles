@@ -89,6 +89,54 @@ else
     link "$DOTFILES/claude-account.zsh" "$HOME/.config/zsh/claude-account.zsh"
 fi
 
+info "Secrets (ansible-vault)"
+if [[ "$currentOS" == "arch" ]]; then
+    sudo pacman -S --needed --noconfirm ansible
+else
+    sudo apt-get install -y ansible
+fi
+
+# Decrypt this machine's copy of each vault-encrypted secret. Never symlinked
+# -- a symlink would point at the encrypted blob in the repo, not plaintext.
+decrypt_vault() {
+    local src="$1" dest="$2"
+    if [[ ! -e "$src" ]]; then
+        warn "skip $dest (missing source $src)"
+        return
+    fi
+    mkdir -p "$(dirname "$dest")"
+    if ansible-vault decrypt --vault-password-file "$vault_pass_file" --output "$dest" "$src" 2>/dev/null; then
+        chmod 600 "$dest"
+        printf '  %s -> %s\n' "$dest" "$src"
+    else
+        warn "failed to decrypt $src (wrong vault password?)"
+    fi
+}
+
+if command -v ansible-vault >/dev/null 2>&1; then
+    vault_pass_file="$(mktemp)"
+    trap 'shred -u "$vault_pass_file" 2>/dev/null || rm -f "$vault_pass_file"' EXIT
+    read -rs -p "Vault password (for keys/ and ssh/ secrets): " vault_pass
+    echo
+    printf '%s' "$vault_pass" >"$vault_pass_file"
+    unset vault_pass
+
+    decrypt_vault "$DOTFILES/ssh/encrypted_id_rsa" "$HOME/.ssh/id_rsa"
+    decrypt_vault "$DOTFILES/ssh/encrypted_bastion-staging.pem" "$HOME/.ssh/bastion-staging.pem"
+    if is_hyde; then
+        decrypt_vault "$DOTFILES/keys/phonecheck.zsh" "$HOME/.config/zsh/conf.d/phonecheck.zsh"
+    else
+        decrypt_vault "$DOTFILES/keys/phonecheck.zsh" "$HOME/.config/zsh/phonecheck.zsh"
+    fi
+
+    rm -f "$vault_pass_file"
+    trap - EXIT
+else
+    warn "ansible-vault unavailable, skipping secret decryption"
+fi
+
+link "$DOTFILES/ssh/config" "$HOME/.ssh/config"
+
 info "Editor config"
 # Explicit list. Do NOT glob dotfiles here: .claude/ is this repo's own
 # project-scoped Claude config and must never be linked over ~/.claude.
