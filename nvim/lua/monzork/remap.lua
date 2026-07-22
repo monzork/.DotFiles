@@ -32,9 +32,19 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+-- `<leader>sr`, not `<leader>s`: telescope owns `<leader>s{h,g,d}`, and a
+-- mapping that is a prefix of another one stalls for `timeoutlen`.
+vim.keymap.set(
+    "n",
+    "<leader>sr",
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "[S]earch and [r]eplace word under cursor" }
+)
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set("n", "<leader><leader>", function()
+-- `<leader>so`, not `<leader><leader>`: leader is Space, so `<leader><leader>`
+-- is the same chord as telescope's `<leader><space>` (buffers), which loads
+-- later from after/plugin and silently won.
+vim.keymap.set("n", "<leader>so", function()
     vim.cmd("so")
-end)
+end, { desc = "[So]urce current file" })

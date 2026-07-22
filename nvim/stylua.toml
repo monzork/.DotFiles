@@ -1,0 +1,11 @@
+# Lives in nvim/ rather than the repo root on purpose: the config is normally
+# reached through the ~/.config/nvim symlink, and stylua's upward search from
+# ~/.config/nvim/lua/... only finds this file if it sits inside the symlinked
+# directory itself.
+column_width = 120
+line_endings = "Unix"
+indent_type = "Spaces"
+indent_width = 4
+quote_style = "AutoPreferDouble"
+call_parentheses = "Always"
+collapse_simple_statement = "Never"

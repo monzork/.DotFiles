@@ -1,9 +1,9 @@
-require('lualine').setup {
+require("lualine").setup({
     options = {
         icons_enabled = false,
-        theme = 'auto',
-        component_separators = '|',
-        section_separators = '',
-        path = 1
-    }
-}
+        theme = "auto",
+        component_separators = "|",
+        section_separators = "",
+        path = 1,
+    },
+})

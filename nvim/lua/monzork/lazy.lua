@@ -39,12 +39,17 @@ require("lazy").setup({
             },
         },
         keys = {
-            { "<leader>ac", "<cmd>ClaudeCode<cr>",           desc = "Toggle Claude Code" },
-            { "<leader>af", "<cmd>ClaudeCodeFocus<cr>",      desc = "Focus Claude Code" },
-            { "<leader>as", "<cmd>ClaudeCodeSend<cr>",       mode = "v",                         desc = "Send selection to Claude" },
-            { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",      desc = "Add current file to Claude" },
+            { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
+            { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude Code" },
+            {
+                "<leader>as",
+                "<cmd>ClaudeCodeSend<cr>",
+                mode = "v",
+                desc = "Send selection to Claude",
+            },
+            { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current file to Claude" },
             { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept Claude diff" },
-            { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Reject Claude diff" },
+            { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Reject Claude diff" },
         },
     },
     "nvim-lualine/lualine.nvim",
@@ -80,7 +85,7 @@ require("lazy").setup({
             { "nvim-telescope/telescope-ui-select.nvim" },
 
             -- Useful for getting pretty icons, but requires a Nerd Font.
-            { "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
+            { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
         },
     },
     {
@@ -107,7 +112,7 @@ require("lazy").setup({
             "WhoIsSethDaniel/mason-tool-installer.nvim",
 
             -- Useful status updates for LSP.
-            { "j-hui/fidget.nvim",    opts = {} },
+            { "j-hui/fidget.nvim", opts = {} },
 
             -- Allows extra capabilities provided by blink.cmp
             "saghen/blink.cmp",
