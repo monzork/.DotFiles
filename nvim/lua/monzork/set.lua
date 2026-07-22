@@ -32,6 +32,12 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
+-- Treesitter folding by default; LspAttach upgrades to LSP folding
+-- (textDocument/foldingRange) per-window when a server supports it.
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevelstart = 99
+
 vim.opt.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
