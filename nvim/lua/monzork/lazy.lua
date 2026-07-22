@@ -19,10 +19,18 @@ require("lazy").setup({
     {
         "coder/claudecode.nvim",
         dependencies = { "folke/snacks.nvim" },
-        config = true,
+        opts = {
+            diff_opts = {
+                layout = "vertical",
+            },
+        },
         keys = {
-            { "<leader>ac", "<cmd>ClaudeCode<cr>",     desc = "Toggle Claude Code" },
-            { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v",                 desc = "Send selection to Claude" },
+            { "<leader>ac", "<cmd>ClaudeCode<cr>",           desc = "Toggle Claude Code" },
+            { "<leader>af", "<cmd>ClaudeCodeFocus<cr>",      desc = "Focus Claude Code" },
+            { "<leader>as", "<cmd>ClaudeCodeSend<cr>",       mode = "v",                  desc = "Send selection to Claude" },
+            { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",      desc = "Add current file to Claude" },
+            { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept Claude diff" },
+            { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Reject Claude diff" },
         },
     },
     "nvim-lualine/lualine.nvim",
