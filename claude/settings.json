@@ -1,0 +1,9 @@
+{
+  "model": "sonnet",
+  "effortLevel": "medium",
+  "theme": "dark",
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
+  }
+}

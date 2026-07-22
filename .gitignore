@@ -1,1 +1,14 @@
 packer_compiled.lua
+
+# Claude Code writes machine-local overrides here; never track them.
+.claude/settings.local.json
+
+# Never track anything resembling Claude credentials or session state.
+claude/.credentials.json
+claude/history.jsonl
+claude/projects/
+claude/sessions/
+claude/shell-snapshots/
+
+# install.sh backups
+*.bak.*

@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./scripts/check.sh)",
+      "Bash(bash -n:*)",
+      "Bash(stylua:*)",
+      "Bash(nvim --headless:*)",
+      "Bash(nvim --clean -l:*)",
+      "Bash(nvim --version)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(git show:*)",
+      "Bash(git ls-files:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Read(//home/monzork/.claude/**)",
+      "Read(//home/monzork/.local/share/nvim/lazy/**)",
+      "Read(//home/monzork/.config/zsh/**)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$(git rev-parse --show-toplevel)\"/scripts/format-hook.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
