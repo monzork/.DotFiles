@@ -53,13 +53,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end
 
-        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map("<leader>th", function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, "[T]oggle Inlay [H]ints")
         end
 
-        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_foldingRange, event.buf) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_foldingRange, event.buf) then
             vim.wo[0][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
         end
     end,
