@@ -62,6 +62,16 @@ else
     sudo "${os[$currentOS]}" install -y git curl zsh wget gpg jq
 fi
 
+if [[ "$currentOS" == "arch" ]]; then
+    info "HyDE (Hyprland desktop)"
+    if command -v hyprctl >/dev/null 2>&1 || [[ -d "$HOME/.config/hypr" ]]; then
+        echo "  already installed"
+    else
+        git clone --depth=1 https://github.com/HyDE-Project/HyDE.git "$HOME/HyDE"
+        (cd "$HOME/HyDE/Scripts" && ./install.sh)
+    fi
+fi
+
 info "Cloning dotfiles"
 if [[ ! -d "$HOME/.DotFiles" ]]; then
     git clone git@github.com:monzork/.DotFiles.git "$HOME/.DotFiles"
@@ -75,6 +85,14 @@ if is_hyde; then
     # HyDE's .zshenv sources ${ZDOTDIR}/conf.d/*.zsh. Anything dropped outside
     # conf.d/ is never read, which is why claude-account.zsh never loaded.
     link "$DOTFILES/claude-account.zsh" "$HOME/.config/zsh/conf.d/claude-account.zsh"
+    # HyDE never reads this repo's .zshrc, so the nvim PATH export at
+    # .zshrc:142 is dead here too -- ship it as its own conf.d fragment.
+    link "$DOTFILES/nvim-path.zsh" "$HOME/.config/zsh/conf.d/nvim-path.zsh"
+    # Same story for the NVM loader at .zshrc:132-134 -- without this, nvm/node/npm
+    # (and anything installed via `npm i -g`, e.g. tree-sitter-cli) are never on
+    # PATH in a HyDE shell even though the "NVM + node tooling" step below installs
+    # them.
+    link "$DOTFILES/nvm-path.zsh" "$HOME/.config/zsh/conf.d/nvm-path.zsh"
 else
     info "Shell: installing oh-my-zsh + powerlevel10k"
     [[ -d "$HOME/.oh-my-zsh" ]] ||
@@ -171,16 +189,22 @@ else
     warn "nvm unavailable, skipping node/pm2/claude-code/tree-sitter-cli"
 fi
 
-info "Neovim runtime deps (search tools, go, clipboard, build tools)"
+info "Neovim runtime deps (search tools, go, lua, clipboard, build tools)"
 # ripgrep/fd back telescope's live_grep and find_files; go builds gopls
 # (mason installs it via `go install`); make+gcc build telescope-fzf-native
-# and luasnip's jsregexp step; a clipboard tool backs `clipboard=unnamedplus`
-# (set.lua) -- wl-clipboard under HyDE/Wayland, xclip as the X11 fallback.
+# and luasnip's jsregexp step; lua/luarocks back mason-managed lua tooling
+# (e.g. luacheck) and running scripts/*.lua outside nvim; a clipboard tool
+# backs `clipboard=unnamedplus` (set.lua) -- wl-clipboard under
+# HyDE/Wayland, xclip as the X11 fallback. tree-sitter-cli is installed here
+# (not just via the npm package below) because nvim-treesitter's
+# `tree-sitter build` step needs it on PATH before nvm/node get sourced in a
+# fresh shell -- without it every parser (json, typescript, emmet, ...) fails
+# to compile with "ENOENT: 'tree-sitter'".
 if [[ "$currentOS" == "arch" ]]; then
-    sudo pacman -S --needed --noconfirm ripgrep fd unzip go xclip
+    sudo pacman -S --needed --noconfirm ripgrep fd unzip go xclip lua luarocks tree-sitter-cli
     is_hyde && sudo pacman -S --needed --noconfirm wl-clipboard
 else
-    sudo apt-get install -y ripgrep fd-find unzip golang-go xclip wl-clipboard build-essential
+    sudo apt-get install -y ripgrep fd-find unzip golang-go xclip wl-clipboard build-essential lua5.4 luarocks tree-sitter-cli
     # Debian/Ubuntu ship the fd binary as `fdfind` to avoid a name clash;
     # nvim-telescope and everything else expects `fd` on PATH.
     if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
@@ -239,16 +263,20 @@ else
     warn "snap not available, skipping discord"
 fi
 
-# DBeaver CE on every machine; Postman everywhere except Ubuntu, which gets
-# Slack + Teams instead. Every source here tracks upstream latest: snap channels
-# default to stable/latest, and Arch's repos and the AUR are rolling.
+# DBeaver CE + Slack + Teams on every machine; Postman everywhere except
+# Ubuntu, which gets Slack + Teams via snap instead. Every source here tracks
+# upstream latest: snap channels default to stable/latest, and Arch's repos
+# and the AUR are rolling.
 case "$currentOS" in
 arch)
     sudo pacman -S --needed --noconfirm dbeaver
     if command -v yay >/dev/null 2>&1; then
-        yay -S --noconfirm postman-bin
+        yay -S --noconfirm postman-bin slack-desktop
+        # Microsoft discontinued the official Teams client for Linux;
+        # teams-for-linux is the maintained community wrapper.
+        yay -S --noconfirm teams-for-linux
     else
-        warn "yay not available, skipping postman"
+        warn "yay not available, skipping postman/slack/teams"
     fi
     ;;
 ubuntu)
